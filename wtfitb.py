@@ -6,6 +6,29 @@ from client import RouteShoutClient
 
 client = RouteShoutClient()
 
+def maybe_s(number):
+    if number == 1:
+        return ""
+    else:
+        return "s"
+
+def pretty_timedelta(td):
+    hours, remainder = divmod(td.total_seconds(), 3600)
+    minutes, seconds = divmod(remainder, 60)
+
+    pretty = ""
+
+    if hours > 0:
+        pretty += "%d hour%s " % (hours, maybe_s(hours))
+    if hours > 0 or minutes > 0:
+        pretty +="%d minute%s " % (minutes, maybe_s(minutes))
+    if hours > 0 or minutes > 0 or seconds > 0:
+        pretty += "%d second%s" % (seconds, maybe_s(seconds))
+
+
+
+    return pretty
+
 def get_next_bus(args):
     response = client.get_time_until_next_arrival_for_stop(args.stop)
 
@@ -24,8 +47,8 @@ def get_next_bus(args):
         print("Bus: %s" % bus['original']['vehicleId'])
         print("Route: %s" % bus['original']['masterRouteLongName'])
         print("Status: %s" % bus['original']['status'])
-        print("Predicted", bus['predicted'])
-        print("Scheduled", bus['scheduled'])
+        print("Scheduled: %s" % pretty_timedelta(bus['scheduled']))
+        print("Predicted: %s" % pretty_timedelta(bus['predicted']))
 
 def get_stops_on_route(args):
     response = client.get_stops_for_route(args.route)
