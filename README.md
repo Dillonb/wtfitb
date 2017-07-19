@@ -13,7 +13,10 @@ I reverse engineered parts of the API by looking at network requests. Hopefully 
 
 ## Usage
 I will try to keep this README up to date, but that might not happen. You should refer to the `--help` option for up to date help.
-
+### `./wtfitb.py --help`
+Outputs a list of commands
+### `./wtfitb.py stops-on-route --help`
+Help for the stops-on-route command. This will work for any of the other subcommands, as well.
 ### `./wtfitb.py stops-on-route --route 5`
 Gives a list of all stop ids and names on the given route
 ### `./wtfitb.py next-bus --stop 328`
