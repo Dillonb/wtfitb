@@ -9,7 +9,17 @@ client = RouteShoutClient()
 def get_next_bus(args):
     response = client.get_time_until_next_arrival_for_stop(args.stop)
 
+    if args.route is not None:
+        route = "%02d" % args.route
+    else:
+        route = None
+
     for bus in response:
+        if route is not None and route != bus['original']['routeShortName']:
+            continue
+        if args.quiet:
+            print(bus['predicted'])
+            break
         print("=========================")
         print("Bus: %s" % bus['original']['vehicleId'])
         print("Route: %s" % bus['original']['masterRouteLongName'])
@@ -24,6 +34,8 @@ def get_stops_on_route(args):
 
     for stop in response['data']:
         stopid = '{:<10}'.format(stop['stopId'])
+
+        # for some reason it gives duplicate stops?
         if stopid == last_stopid:
             continue
         stopname = stop['stopName']
@@ -40,6 +52,8 @@ stops_on_route.set_defaults(func=get_stops_on_route)
 
 next_bus = subparsers.add_parser("next-bus", help="Get next bus at stop")
 next_bus.add_argument("--stop", type=int, required=True, help="Get the time until the next bus at a given stop")
+next_bus.add_argument("--route", type=int, required=False, help="Limit to a given route")
+next_bus.add_argument("--quiet", "-q", action="store_true", help="Only output the estimated time until the next bus")
 next_bus.set_defaults(func=get_next_bus)
 
 args = arg_parser.parse_args()
