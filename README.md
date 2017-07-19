@@ -2,7 +2,7 @@
 Where The F Is The Bus? A CLI interface for the GMT/CCTA buses in Vermont
 
 ## Why?
-The official RouteShout 2.0 application is a bit buggy, and also doesn't have a command line version!
+I'm not a fan of the official RouteShout 2.0 application, which doesn't have a command line version!
 
 ## How?
 I reverse engineered parts of the API by looking at network requests. Hopefully nobody minds. You're still paying for the bus, after all, and this hits the API a lot less than the web interface.
