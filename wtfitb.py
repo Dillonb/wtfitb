@@ -47,12 +47,12 @@ subparsers = arg_parser.add_subparsers(title="command", dest="command")
 subparsers.required = True
 
 stops_on_route = subparsers.add_parser("stops-on-route", help="Get stops on route")
-stops_on_route.add_argument("--route", type=int, required=True, help="Get list of stops on a given route")
+stops_on_route.add_argument("--route", "-r", type=int, required=True, help="Get list of stops on a given route")
 stops_on_route.set_defaults(func=get_stops_on_route)
 
 next_bus = subparsers.add_parser("next-bus", help="Get next bus at stop")
-next_bus.add_argument("--stop", type=int, required=True, help="Get the time until the next bus at a given stop")
-next_bus.add_argument("--route", type=int, required=False, help="Limit to a given route")
+next_bus.add_argument("--stop", "-s", type=int, required=True, help="Get the time until the next bus at a given stop")
+next_bus.add_argument("--route", "-r", type=int, required=False, help="Limit to a given route")
 next_bus.add_argument("--quiet", "-q", action="store_true", help="Only output the estimated time until the next bus")
 next_bus.set_defaults(func=get_next_bus)
 
