@@ -7,11 +7,11 @@ The official RouteShout 2.0 application is riddled with bugs, and also doesn't h
 ## How?
 I reverse engineered parts of the API by looking at network requests. Hopefully nobody minds. You're still paying for the bus, after all, and this hits the API a lot less than the web interface.
 
-## Installation and requirements
+## Requirements
 * Python 3.x
 * dateutil (`sudo apt install python3-dateutil` on Ubuntu)
 
-## Usage
+## Examples
 I will try to keep this README up to date, but that might not happen. You should refer to the `--help` option for up to date help.
 ### `./wtfitb.py --help`
 Outputs a list of commands
