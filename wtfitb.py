@@ -3,8 +3,10 @@
 import argparse
 
 from client import RouteShoutClient
+from stopnameholder import StopNameHolder
 
 client = RouteShoutClient()
+stops = StopNameHolder()
 
 def maybe_s(number):
     if number == 1:
@@ -37,6 +39,9 @@ def get_next_bus(args):
     else:
         route = None
 
+    stopname = stops.get_stop_name(args.stop)
+    print("Upcoming buses at stop: %s" % stopname)
+
     for bus in response:
         if route is not None and route != bus['original']['routeShortName']:
             continue
@@ -62,8 +67,13 @@ def get_stops_on_route(args):
         if stopid == last_stopid:
             continue
         stopname = stop['stopName']
+
+        stops.save_stop_name(stop['stopId'], stopname)
+
         print (stopid, stopname)
         last_stopid = stopid
+
+    stops.save()
 
 arg_parser = argparse.ArgumentParser(description="Command line interface for GMT")
 subparsers = arg_parser.add_subparsers(title="command", dest="command")
